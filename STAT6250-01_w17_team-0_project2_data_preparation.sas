@@ -3,3 +3,115 @@
 * (set window width to banner width to calibrate line length to 80 characters *;
 *******************************************************************************;
 
+*
+[Team Number] team-4
+
+--
+
+ [Dataset 1 Name] Demographic Variables and Sample Weights (DEMO_B)
+
+[Dataset Description] The NHANES 2001-2002 Sample Person Demographics File provides the interview and MEC examination status variable, sample weights, and selected demographic variables such as gender, age, race/ethnicity, education, marital status, country of birth, pregnancy status, total family and household income, and ratio of income to poverty.
+
+[Experimental Unit Description] Individual
+
+[Number of Observations] 11,039
+
+[Number of Features] 37
+
+[Data Source] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/DEMO_B.XPT
+
+[Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/DEMO_B.htm
+
+[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+
+ 
+
+[Dataset 2 Name] Demographic Variables and Sample Weights (DEMO_C)
+
+[Dataset Description] The NHANES 2003-2004 Sample Person Demographics File provides the interview and MEC examination status variable, sample weights, and selected demographic variables such as gender, age, race/ethnicity, education, marital status, country of birth, pregnancy status, total family and household income, and ratio of income to poverty.
+
+[Experimental Unit Description] Individual
+
+[Number of Observations] 10,122
+
+[Number of Features] 44
+
+[Data Source] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/DEMO_C.XPT
+
+[Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/DEMO_C.htm
+
+[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+
+ 
+
+[Dataset 3 Name] Physical Activity (PAQ_B)
+
+[Dataset Description] The physical activity questionnaire (PAQ) section includes an extensive array of questions related to daily activities, leisure-time activities, and sedentary activities at home for the year 2001-2002
+
+[Experimental Unit Description] Individual
+
+[Number of Observations] 10,094
+
+[Number of Features] 21
+
+[Data Source] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/PAQ_B.XPT
+
+[Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/PAQ_B.htm
+
+[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+
+ 
+
+[Dataset 4 Name] Physical Activity (PAQ_C)
+
+[Dataset Description] The physical activity questionnaire (PAQ) section includes an extensive array of questions related to daily activities, leisure-time activities, and sedentary activities at home for the year 2003-2004
+
+[Experimental Unit Description] Individual
+
+[Number of Observations] 9278
+
+[Number of Features] 20
+
+[Data Source] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/PAQ_C.XPT
+
+[Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/PAQ_C.htm
+
+[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+
+ 
+
+[Dataset 5 Name] Lead - Dust  L20_B
+
+[Dataset Description] In 1999, NHANES began to collect dust samples from the homes of children 1–5 years of age to be tested for the presence of lead. Lead in dust is most often the result of old, peeling, or chipping lead-based paint. As part of the household visit, NHANES interviewers collected separate dust-wipe samples from the floor and window sill of one room in the home. Signing of a special informed consent was required prior to the collection.
+
+[Experimental Unit Description] Individual
+
+[Number of Observations] 1330
+
+[Number of Features] 20
+
+[Data Source] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/L20_B.XPT
+
+[Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/L20_B.htm
+
+[Unique ID Schema] SEQN
+
+ 
+
+[Dataset 6 Name] Lead - Dust  L20_C
+
+[Dataset Description] In 1999, NHANES began to collect dust samples from the homes of children 1–5 years of age to be tested for the presence of lead. Lead in dust is most often the result of old, peeling, or chipping lead-based paint. As part of the household visit, NHANES interviewers collected separate dust-wipe samples from the floor and window sill of one room in the home. Signing of a special informed consent was required prior to the collection.
+
+[Experimental Unit Description] Individual
+
+[Number of Observations] 1267
+
+[Number of Features] 20
+
+[Data Source] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/L20_C.XPT
+
+[Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/L20_C.htm
+
+[Unique ID Schema] SEQN
+
+;
