@@ -115,3 +115,106 @@
 [Unique ID Schema] SEQN
 
 ;
+
+
+%let inputDataset1URL =
+https://github.com/stat6250/team-4_project2/blob/master/DEMO_B.xlsx
+;
+%let inputDataset1Type = XLSX;
+%let inputDataset1DSN = DEMO_B_raw;
+
+
+%let inputDataset2URL =
+https://github.com/stat6250/team-4_project2/blob/master/DEMO_C.xlsx
+;
+%let inputDataset2Type = XLSX;
+%let inputDataset2DSN = DEMO_C_raw;
+
+
+%let inputDataset3URL =
+https://github.com/stat6250/team-4_project2/blob/master/PAQ_B.xlsx
+;
+%let inputDataset3Type = XLSX;
+%let inputDataset3DSN = PAQ_B_raw;
+
+
+%let inputDataset4URL =
+https://github.com/stat6250/team-4_project2/blob/master/PAQ_C.xlsx
+;
+%let inputDataset4Type = XLSX;
+%let inputDataset4DSN = PAQ_C_raw;
+
+
+%let inputDataset5URL =
+https://github.com/stat6250/team-4_project2/blob/master/L20_B.xlsx
+;
+%let inputDataset5Type = XLSX;
+%let inputDataset5DSN = L20_B_raw;
+
+
+%let inputDataset6URL =
+https://github.com/stat6250/team-4_project2/blob/master/L20_C.xlsx
+;
+%let inputDataset6Type = XLSX;
+%let inputDataset6DSN = L20_C_raw;
+
+
+* load raw datasets over the wire, if they doesn't already exist;
+%macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
+    %put &=dsn;
+    %put &=url;
+    %put &=filetype;
+    %if
+        %sysfunc(exist(&dsn.)) = 0
+    %then
+        %do;
+            %put Loading dataset &dsn. over the wire now...;
+            filename tempfile TEMP;
+            proc http
+                method="get"
+                url="&url."
+                out=tempfile
+                ;
+            run;
+            proc import
+                file=tempfile
+                out=&dsn.
+                dbms=&filetype.;
+            run;
+            filename tempfile clear;
+        %end;
+    %else
+        %do;
+            %put Dataset &dsn. already exists. Please delete and try again.;
+        %end;
+%mend;
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset1DSN.,
+    &inputDataset1URL.,
+    &inputDataset1Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset2DSN.,
+    &inputDataset2URL.,
+    &inputDataset2Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset3DSN.,
+    &inputDataset3URL.,
+    &inputDataset3Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset4DSN.,
+    &inputDataset4URL.,
+    &inputDataset4Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset5DSN.,
+    &inputDataset5URL.,
+    &inputDataset5Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset6DSN.,
+    &inputDataset6URL.,
+    &inputDataset6Type.
+)
