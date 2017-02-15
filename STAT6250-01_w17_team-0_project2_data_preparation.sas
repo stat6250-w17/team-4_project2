@@ -115,3 +115,45 @@
 [Unique ID Schema] SEQN
 
 ;
+
+
+%let inputDataset1URL =
+https://github.com/stat6250/team-4_project2/blob/master/DEMO_B.xlsx
+;
+%let inputDataset1Type = XLSX;
+%let inputDataset1DSN = DEMO_B_raw;
+
+
+%let inputDataset2URL =
+https://github.com/stat6250/team-4_project2/blob/master/DEMO_C.xlsx
+;
+%let inputDataset2Type = XLSX;
+%let inputDataset2DSN = DEMO_C_raw;
+
+
+%let inputDataset3URL =
+https://github.com/stat6250/team-4_project2/blob/master/PAQ_B.xlsx
+;
+%let inputDataset3Type = XLSX;
+%let inputDataset3DSN = PAQ_B_raw;
+
+
+%let inputDataset4URL =
+https://github.com/stat6250/team-4_project2/blob/master/PAQ_C.xlsx
+;
+%let inputDataset4Type = XLSX;
+%let inputDataset4DSN = PAQ_C_raw;
+
+
+%let inputDataset5URL =
+https://github.com/stat6250/team-4_project2/blob/master/L20_B.xlsx
+;
+%let inputDataset5Type = XLSX;
+%let inputDataset5DSN = L20_B_raw;
+
+
+%let inputDataset6URL =
+https://github.com/stat6250/team-4_project2/blob/master/L20_C.xlsx
+;
+%let inputDataset6Type = XLSX;
+%let inputDataset6DSN = L20_C_raw;
