@@ -18,31 +18,31 @@ access=readonly;
 
 
 proc export data=DEMOB.demo_b
-dbms=xlsx 
-outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\DEMO_B.xlsx'
+dbms=xls
+outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\DEMO_B.xls'
 replace;
 
 proc export data=DEMOC.demo_c
-dbms=xlsx 
-outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\DEMO_C.xlsx'
+dbms=xls 
+outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\DEMO_C.xls'
 replace;
 
 proc export data=PAQB.PAQ_B
-dbms=xlsx 
-outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\PAQ_B.xlsx'
+dbms=xls
+outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\PAQ_B.xls'
 replace;
 
 proc export data=PAQC.PAQ_C
-dbms=xlsx 
-outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\PAQ_C.xlsx'
+dbms=xls 
+outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\PAQ_C.xls'
 replace;
 
 proc export data=L20_B.L20_B
-dbms=xlsx 
-outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\L20_B .xlsx'
+dbms=xls
+outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\L20_B .xls'
 replace;
 
 proc export data=L20_C.L20_C
-dbms=xlsx 
-outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\L20_C.xlsx'
+dbms=xls 
+outfile='\\pamfrifs02\Home\gummidipundis\Documents\Github\team-4_project2\L20_C.xls'
 replace;
