@@ -287,4 +287,29 @@ proc sort
     ;
 run;
 
+proc contents data=demo_b_raw varnum;
+run;
 
+proc contents data=demo_c_raw varnum;
+run;
+
+
+*Merge datasets;
+data demo_lead_b;
+	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
+	by SEQN;
+	demo = A;
+	L20 = B;
+run;
+
+data demo_lead_c;
+	merge demo_c_raw (IN=A) L20_c_raw (IN=B);
+	by SEQN;
+	demo = A;
+	L20 = B;
+run;
+
+
+data demo_lead_total;
+	set demo_lead_b demo_lead_c;
+run;
