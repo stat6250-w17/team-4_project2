@@ -5,12 +5,13 @@
 
 *
 This file uses the following analytic dataset to address several research
-questions regarding 
+questions regarding physical activities people do.
 
-Dataset Name:                                         created in external file
+Dataset Name: demo_paq_analytic_file                created in external file
 STAT6250-01_w17-team-4_project2_data_preparation.sas, which is assumed to be
-in the same directory as this file
-See included file for dataset properties
+in the same directory as this file.
+
+See included file for dataset properties.
 ;
 
 * environmental setup;
@@ -18,7 +19,7 @@ See included file for dataset properties
 %let sasUEFilePrefix = team-4_project2;
 
 * load external file that generates analytic dataset
-cde_2014_analytic_file using a system path dependent on the host
+demo_paq_analytic_file using a system path dependent on the host
 operating system, after setting the relative file import path to the current
 directory, if using Windows;
 %macro setup;
@@ -43,8 +44,10 @@ directory, if using Windows;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 *
-Question:
-Rationale:
+Question: How much time are the top 10 walking and biking lovers spend on 
+walking and biking  in 30 days?
+Rationale: This would help to estimate the time the true walking and biking 
+lovers spend.
 Note: 
 Methodology:
 ;
@@ -56,8 +59,10 @@ Methodology:
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 *
-Question:
-Rationale:
+Question: Who like walking and biking based on gender, age, and annual family 
+income?
+Rationale:This would help to identify  if  gender, age, and annual family income
+play  roles in determining people's physical activity choices. 
 Note: 
 Methodology:
 ;
@@ -67,8 +72,10 @@ Methodology:
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 *
-Question:
-Rationale:
+Question: What is the average time they spend on walking and biking in 30 days 
+by gender, age, and annual family income?
+Rationale: This would help to estimate the time different groups of people 
+spend on walking and biking.
 Note: 
 Methodology:
 ;
