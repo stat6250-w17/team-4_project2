@@ -4,15 +4,15 @@
 *******************************************************************************;
 
 *
-[Team Number] team-4
+[Dataset 1 Name] Demographic Variables and Sample Weights (DEMO_B)
 
---
+[Dataset Description] The NHANES 2001-2002 Sample Person Demographics File 
+provides the interview and MEC examination status variable, sample weights,
+and selected demographic variables such as gender, age, race/ethnicity, 
+education, marital status, country of birth, pregnancy status, total family and 
+household income, and ratio of income to poverty.
 
- [Dataset 1 Name] Demographic Variables and Sample Weights (DEMO_B)
-
-[Dataset Description] The NHANES 2001-2002 Sample Person Demographics File provides the interview and MEC examination status variable, sample weights, and selected demographic variables such as gender, age, race/ethnicity, education, marital status, country of birth, pregnancy status, total family and household income, and ratio of income to poverty.
-
-[Experimental Unit Description] Individual
+[Experimental Unit Description] Individuals
 
 [Number of Observations] 11,039
 
@@ -22,15 +22,20 @@
 
 [Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/DEMO_B.htm
 
-[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+[Unique ID Schema] SEQN
 
- 
+ --
 
 [Dataset 2 Name] Demographic Variables and Sample Weights (DEMO_C)
 
-[Dataset Description] The NHANES 2003-2004 Sample Person Demographics File provides the interview and MEC examination status variable, sample weights, and selected demographic variables such as gender, age, race/ethnicity, education, marital status, country of birth, pregnancy status, total family and household income, and ratio of income to poverty.
+[Dataset Description] The NHANES 2003-2004 Sample Person Demographics 
+File provides the interview and MEC examination status variable, 
+sample weights, and selected demographic variables such as gender, age, 
+race/ethnicity, education, marital status, country of birth, pregnancy
+status, total family and household income, and ratio of income to 
+poverty.
 
-[Experimental Unit Description] Individual
+[Experimental Unit Description] Individuals
 
 [Number of Observations] 10,122
 
@@ -40,15 +45,18 @@
 
 [Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/DEMO_C.htm
 
-[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
-
+[Unique ID Schema] SEQN
  
+--
 
 [Dataset 3 Name] Physical Activity (PAQ_B)
 
-[Dataset Description] The physical activity questionnaire (PAQ) section includes an extensive array of questions related to daily activities, leisure-time activities, and sedentary activities at home for the year 2001-2002
+[Dataset Description] The physical activity questionnaire (PAQ) section
+includes an extensive array of questions related to daily activities, 
+leisure-time activities, and sedentary activities at home for the year
+2001-2002.
 
-[Experimental Unit Description] Individual
+[Experimental Unit Description] Individuals
 
 [Number of Observations] 10,094
 
@@ -58,15 +66,18 @@
 
 [Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2001-2002/PAQ_B.htm
 
-[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+[Unique ID Schema] SEQN
 
- 
+ --
 
 [Dataset 4 Name] Physical Activity (PAQ_C)
 
-[Dataset Description] The physical activity questionnaire (PAQ) section includes an extensive array of questions related to daily activities, leisure-time activities, and sedentary activities at home for the year 2003-2004
+[Dataset Description] The physical activity questionnaire (PAQ) section 
+includes an extensive array of questions related to daily activities, 
+leisure-time activities, and sedentary activities at home for the year
+2003-2004.
 
-[Experimental Unit Description] Individual
+[Experimental Unit Description] Individuals
 
 [Number of Observations] 9278
 
@@ -76,15 +87,20 @@
 
 [Data Dictionary] https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/PAQ_C.htm
 
-[Unique ID Schema] The column “SEQN” which corresponds to the respondent sequence number us the unique ID in this schema.
+[Unique ID Schema] SEQN
 
- 
+--
 
 [Dataset 5 Name] Lead - Dust  L20_B
 
-[Dataset Description] In 1999, NHANES began to collect dust samples from the homes of children 1–5 years of age to be tested for the presence of lead. Lead in dust is most often the result of old, peeling, or chipping lead-based paint. As part of the household visit, NHANES interviewers collected separate dust-wipe samples from the floor and window sill of one room in the home. Signing of a special informed consent was required prior to the collection.
+[Dataset Description] In 1999, NHANES began to collect dust samples from the
+homes of children 1â€“5 years of age to be tested for the presence of lead. 
+Lead in dust is most often the result of old, peeling, or chipping lead-based
+paint. As part of the household visit, NHANES interviewers collected separate 
+dust-wipe samples from the floor and window sill of one room in the home. 
+Signing of a special informed consent was required prior to the collection.
 
-[Experimental Unit Description] Individual
+[Experimental Unit Description] Individuals
 
 [Number of Observations] 1330
 
@@ -96,13 +112,18 @@
 
 [Unique ID Schema] SEQN
 
- 
+-- 
 
 [Dataset 6 Name] Lead - Dust  L20_C
 
-[Dataset Description] In 1999, NHANES began to collect dust samples from the homes of children 1–5 years of age to be tested for the presence of lead. Lead in dust is most often the result of old, peeling, or chipping lead-based paint. As part of the household visit, NHANES interviewers collected separate dust-wipe samples from the floor and window sill of one room in the home. Signing of a special informed consent was required prior to the collection.
+[Dataset Description] In 1999, NHANES began to collect dust samples from the
+homes of children 1â€“5 years of age to be tested for the presence of lead.
+Lead in dust is most often the result of old, peeling, or chipping lead-based 
+paint. As part of the household visit, NHANES interviewers collected separate
+dust-wipe samples from the floor and window sill of one room in the home. 
+Signing of a special informed consent was required prior to the collection.
 
-[Experimental Unit Description] Individual
+[Experimental Unit Description] Individuals
 
 [Number of Observations] 1267
 
@@ -313,3 +334,43 @@ run;
 data demo_lead_total;
 	set demo_lead_b demo_lead_c;
 run;
+
+data demo_paq_b;
+    merge demo_b_raw_sorted (IN=A) paq_b_raw_sorted (IN=B);
+    by SEQN;
+    if A and B;
+run;
+
+data demo_paq_c;
+    merge demo_c_raw_sorted (IN=A) paq_c_raw_sorted (IN=B);
+    by SEQN;
+    if A and B;
+run;
+
+data demo_paq_analytic_file;
+    retain
+        SEQN 
+	PAD020
+	PAQ050Q
+	PAQ050U
+	PAD080
+	RIAGENDR
+	RIDAGEYR
+	INDFMINC
+     ;
+     keep
+         SEQN 
+	 PAD020
+	 PAQ050Q
+	 PAQ050U
+	 PAD080
+	 RIAGENDR
+	 RIDAGEYR
+	 INDFMINC
+    ;
+    set demo_paq_b demo_paq_c;
+run;
+
+
+
+
