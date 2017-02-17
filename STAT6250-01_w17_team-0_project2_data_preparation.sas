@@ -217,3 +217,74 @@ https://github.com/stat6250/team-4_project2/blob/master/data/L20_C.xls?raw=true
     &inputDataset6URL.,
     &inputDataset6Type.
 )
+
+
+* sort and check raw datasets for duplicates with respect to their unique ids,
+  removing blank rows, if needed;
+proc sort
+        nodupkey
+        data=DEMO_B_raw
+        dupout=DEMO_B_raw_dups
+        out=DEMO_B_raw_sorted(where=(not(missing(SEQN))))
+    ;
+    by
+        SEQN
+    ;
+run;
+
+proc sort
+        nodupkey
+        data=DEMO_C_raw
+        dupout=DEMO_C_raw_dups
+        out=DEMO_C_raw_sorted(where=(not(missing(SEQN))))
+    ;
+    by
+        SEQN
+    ;
+run;
+
+proc sort
+        nodupkey
+        data=PAQ_B_raw
+        dupout=PAQ_B_raw_dups
+        out=PAQ_B_raw_sorted(where=(not(missing(SEQN))))
+    ;
+    by
+        SEQN
+    ;
+run;
+
+proc sort
+        nodupkey
+        data=PAQ_C_raw
+        dupout=PAQ_C_raw_dups
+        out=PAQ_C_raw_sorted(where=(not(missing(SEQN))))
+    ;
+    by
+        SEQN
+    ;
+run;
+
+proc sort
+        nodupkey
+        data=L20_B_raw
+        dupout=L20_B_raw_dups
+        out=L20_B_raw_sorted(where=(not(missing(SEQN))))
+    ;
+    by
+        SEQN
+    ;
+run;
+
+proc sort
+        nodupkey
+        data=L20_C_raw
+        dupout=L20_C_raw_dups
+        out=L20_C_raw_sorted(where=(not(missing(SEQN))))
+    ;
+    by
+        SEQN
+    ;
+run;
+
+
