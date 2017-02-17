@@ -348,6 +348,26 @@ data demo_paq_c;
 run;
 
 data demo_paq_analytic_file;
+    retain
+        SEQN 
+	PAD020
+	PAQ050Q
+	PAQ050U
+	PAD080
+	RIAGENDR
+	RIDAGEYR
+	INDFMINC
+     ;
+     keep
+         SEQN 
+	 PAD020
+	 PAQ050Q
+	 PAQ050U
+	 PAD080
+	 RIAGENDR
+	 RIDAGEYR
+	 INDFMINC
+    ;
     set demo_paq_b demo_paq_c;
 run;
 
