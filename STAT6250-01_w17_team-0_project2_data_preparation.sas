@@ -118,46 +118,45 @@
 
 
 %let inputDataset1URL =
-https://github.com/stat6250/team-4_project2/blob/master/DEMO_B.xlsx
+https://github.com/stat6250/team-4_project2/blob/master/data/DEMO_B.xls?raw=true
 ;
-%let inputDataset1Type = XLSX;
+%let inputDataset1Type = XLS;
 %let inputDataset1DSN = DEMO_B_raw;
 
 
 %let inputDataset2URL =
-https://github.com/stat6250/team-4_project2/blob/master/DEMO_C.xlsx
+https://github.com/stat6250/team-4_project2/blob/master/data/DEMO_C.xls?raw=true
 ;
-%let inputDataset2Type = XLSX;
+%let inputDataset2Type = XLS;
 %let inputDataset2DSN = DEMO_C_raw;
 
 
 %let inputDataset3URL =
-https://github.com/stat6250/team-4_project2/blob/master/PAQ_B.xlsx
+https://github.com/stat6250/team-4_project2/blob/master/data/PAQ_B.xls?raw=true
 ;
-%let inputDataset3Type = XLSX;
+%let inputDataset3Type = XLS;
 %let inputDataset3DSN = PAQ_B_raw;
 
 
 %let inputDataset4URL =
-https://github.com/stat6250/team-4_project2/blob/master/PAQ_C.xlsx
+https://github.com/stat6250/team-4_project2/blob/master/data/PAQ_C.xls?raw=true
 ;
-%let inputDataset4Type = XLSX;
+%let inputDataset4Type = XLS;
 %let inputDataset4DSN = PAQ_C_raw;
 
 
 %let inputDataset5URL =
-https://github.com/stat6250/team-4_project2/blob/master/L20_B.xlsx
+https://github.com/stat6250/team-4_project2/blob/master/data/L20_B%20.xls?raw=true
 ;
-%let inputDataset5Type = XLSX;
+%let inputDataset5Type = XLS;
 %let inputDataset5DSN = L20_B_raw;
 
 
 %let inputDataset6URL =
-https://github.com/stat6250/team-4_project2/blob/master/L20_C.xlsx
+https://github.com/stat6250/team-4_project2/blob/master/data/L20_C.xls?raw=true
 ;
-%let inputDataset6Type = XLSX;
+%let inputDataset6Type = XLS;
 %let inputDataset6DSN = L20_C_raw;
-
 
 * load raw datasets over the wire, if they doesn't already exist;
 %macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
