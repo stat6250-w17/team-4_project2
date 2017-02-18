@@ -36,8 +36,13 @@ Note:
 Methodology:
 ;
 
+proc means data=WORK.DEMO_LEAD_TOTAL;
+	by race;
+run;
+
 proc contents data=WORK.DEMO_LEAD_TOTAL;
 run;
 
 proc freq data=WORK.DEMO_LEAD_TOTAL;
+	table race;
 run;
