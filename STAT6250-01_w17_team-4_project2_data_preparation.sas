@@ -323,15 +323,15 @@ run;
 
 *proc format statements;
 proc format;
-	value RIDRETH1 1 = 'Mexican American'
+	value RIDRETH1_ 1 = 'Mexican American'
 				   2 = 'Other Hispanic'
 				   3 = 'Non-Hispanic White'
 				   4 = 'Non-Hispanic Black'
 				   5 = 'Other Race - Including Multi-Racial';
-	value DCDSTAT 1 = 'Floor Only'
+	value DCDSTAT_ 1 = 'Floor Only'
 				  2 = 'Window Only'
 				  3 = 'Floor and Window';
-	value DCD030 2 = 'Living Room/Family Room/Den'
+	value DCD030_ 2 = 'Living Room/Family Room/Den'
 				 3 = 'Dining Room'
 				 4 = 'Kitchen'
 				 5 = 'Bedroom'
@@ -357,26 +357,22 @@ data demo_lead_c;
 run;
 
 /*Dataset for lead exposure*/
-data demo_lead_total;
+data demo_lead_total (keep=race dust_sample room_sample floor_ug window_ug mean_ug);
 	set demo_lead_b demo_lead_c;
-	keep RIDRETH1 
-		 DCDSTAT 
-		 DCD030 
-		 LBXDFSF 
-		 LBDDWS
-		 demo
-		 L20;
 	rename  RIDRETH1 = race
 			DCDSTAT = dust_sample
 			DCD030 = room_sample
 			LBXDFSF = floor_ug
 			LBDDWS = window_ug;
-	label race = 'Reported Race';
-	label dust_sample = 'Dust Sample Status';
-	label room_sample = 'Room where samples taken';
-	label floor_ug = 'Floor, FAAS';
-	label window_ug = 'Window, FAAS';
-	if demo and L20;
+	label RIDRETH1 = 'Reported Race';
+	label DCDSTAT = 'Dust Sample Status';
+	label DCD030 = 'Room where samples taken';
+	label LBXDFSF = 'Floor, FAAS';
+	label LBDDWS = 'Window, FAAS';
+		/*Create a mean variable for both window and lead exposure*/
+	/*If one variable is missing, it just takes the other one*/
+	mean_ug = mean(LBXDFSF,LBDDWS);
+	if demo AND L20;
 run;
 
 data demo_paq_b;
