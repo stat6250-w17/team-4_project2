@@ -314,12 +314,22 @@ run;
 proc contents data=demo_c_raw varnum;
 run;
 
+proc contents data=l20_b_raw varnum;
+run;
+
+proc contents data=l20_c_raw varnum;
+run;
+
+proc freq data=l20_c_raw;
+run;
+
 
 *Merge datasets;
 data demo_lead_b;
 	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
 	by SEQN;
-	if A and B;
+	demo = A;
+	L20 = B;
 run;
 
 data demo_lead_c;
@@ -329,16 +339,44 @@ data demo_lead_c;
 	L20 = B;
 run;
 
+proc format;
+	value RIDRETH1 1 = 'Mexican American'
+				   2 = 'Other Hispanic'
+				   3 = 'Non-Hispanic White'
+				   4 = 'Non-Hispanic Black'
+				   5 = 'Other Race - Including Multi-Racial';
+	value DCDSTAT 1 = 'Floor Only'
+				  2 = 'Window Only'
+				  3 = 'Floor and Window';
+	value DCD030 2 = 'Living Room/Family Room/Den'
+				 3 = 'Dining Room'
+				 4 = 'Kitchen'
+				 5 = 'Bedroom'
+				 7 = 'Another room';
+run;
 
 data demo_lead_total;
 	set demo_lead_b demo_lead_c;
-	keep RIDAGEYR
-		 RIDRETH1
-		 DCD030
-		 DCD070A
-		 LBXDFS
-	   	 LBXDFSF
-		 LBXDDWS;
+
+	keep RIDRETH1 
+		 DCDSTAT 
+		 DCD030 
+		 LBXDFSF 
+		 LBDDWS
+		 demo
+		 L20;
+	rename  RIDRETH1 = race
+			DCDSTAT = dust_sample
+			DCD030 = room_sample
+			LBXDFSF = floor_ug
+			LBDDWS = window_ug;
+	label race = 'Reported Race';
+	label dust_sample = 'Dust Sample Status';
+	label room_sample = 'Room where samples taken';
+	label floor_ug = 'Floor, FAAS';
+	label window_ug = 'Window, FAAS';
+	if demo and L20;
+
 run;
 
 data demo_paq_b;
