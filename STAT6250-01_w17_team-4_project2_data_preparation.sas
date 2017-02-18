@@ -359,11 +359,13 @@ run;
 /*Dataset for lead exposure*/
 data demo_lead_total (keep=race dust_sample room_sample floor_ug window_ug mean_ug);
 	set demo_lead_b demo_lead_c;
-	rename  RIDRETH1 = race
+	rename  SSDSRVYR = survey_year
+			RIDRETH1 = race
 			DCDSTAT = dust_sample
 			DCD030 = room_sample
 			LBXDFSF = floor_ug
 			LBDDWS = window_ug;
+	label SSDSRVYR = 'Survey Cycle';
 	label RIDRETH1 = 'Reported Race';
 	label DCDSTAT = 'Dust Sample Status';
 	label DCD030 = 'Room where samples taken';
