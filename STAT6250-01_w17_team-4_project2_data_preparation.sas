@@ -347,7 +347,7 @@ data demo_paq_c;
     if A and B;
 run;
 
-data demo_paq_analytic_file;
+data demo_paq_total;
     retain
         SEQN 
 	PAD020
@@ -371,6 +371,19 @@ data demo_paq_analytic_file;
     set demo_paq_b demo_paq_c;
 run;
 
-
-
+data demo_paq_analytic_file;
+    rename 
+        PAD020= Walk_bike_Status
+	PAQ050Q= Times_Walk_Bike
+	PAQ050U= Unit_Measure
+	PAD080= Minutes_Day
+	RIAGENDR= Gender
+	RIDAGEYR= Age
+	INDFMINC= Annual_Family_Income
+	
+    ;
+    
+    
+    set demo_paq_total;
+run;
 
