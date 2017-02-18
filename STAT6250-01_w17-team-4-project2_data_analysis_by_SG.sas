@@ -35,3 +35,9 @@ propensity to lead exposure, and also whether the exposure has improved or not o
 Note: 
 Methodology:
 ;
+
+proc contents data=WORK.DEMO_LEAD_TOTAL;
+run;
+
+proc freq data=WORK.DEMO_LEAD_TOTAL;
+run;
