@@ -37,18 +37,11 @@ Methodology:
 ;
 
 proc means data=WORK.DEMO_LEAD_TOTAL;
-	class race;
-	where mean_ug ^= . AND race ^= .;
+
+	where mean_ug ^= . AND race ^= . AND survey_cycle = 2;
 	var mean_ug;
-	by race;
+	class race;
+	format race race.;
 run;
 
-proc print data=work.demo_lead_total (obs=20);
-run;
 
-proc contents data=WORK.DEMO_LEAD_TOTAL;
-run;
-
-proc freq data=WORK.DEMO_LEAD_TOTAL;
-	table mean_ug;
-run;
