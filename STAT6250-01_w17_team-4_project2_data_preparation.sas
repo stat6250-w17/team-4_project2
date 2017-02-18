@@ -357,6 +357,7 @@ run;
 
 data demo_lead_total;
 	set demo_lead_b demo_lead_c;
+
 	keep RIDRETH1 
 		 DCDSTAT 
 		 DCD030 
@@ -375,6 +376,7 @@ data demo_lead_total;
 	label floor_ug = 'Floor, FAAS';
 	label window_ug = 'Window, FAAS';
 	if demo and L20;
+
 run;
 
 data demo_paq_b;
