@@ -308,6 +308,7 @@ proc sort
     ;
 run;
 
+*PROC contents statements to get variables;
 proc contents data=demo_b_raw varnum;
 run;
 
@@ -320,25 +321,7 @@ run;
 proc contents data=l20_c_raw varnum;
 run;
 
-proc freq data=l20_c_raw;
-run;
-
-
-*Merge datasets;
-data demo_lead_b;
-	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
-	by SEQN;
-	demo = A;
-	L20 = B;
-run;
-
-data demo_lead_c;
-	merge demo_c_raw (IN=A) L20_c_raw (IN=B);
-	by SEQN;
-	demo = A;
-	L20 = B;
-run;
-
+*proc format statements;
 proc format;
 	value RIDRETH1 1 = 'Mexican American'
 				   2 = 'Other Hispanic'
@@ -355,9 +338,27 @@ proc format;
 				 7 = 'Another room';
 run;
 
+
+*Create analytic dataset for lead exposure;
+
+*Merge datasets;
+data demo_lead_b;
+	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
+	by SEQN;
+	demo = A;
+	L20 = B;
+run;
+
+data demo_lead_c;
+	merge demo_c_raw (IN=A) L20_c_raw (IN=B);
+	by SEQN;
+	demo = A;
+	L20 = B;
+run;
+
+/*Dataset for lead exposure*/
 data demo_lead_total;
 	set demo_lead_b demo_lead_c;
-
 	keep RIDRETH1 
 		 DCDSTAT 
 		 DCD030 
@@ -376,7 +377,6 @@ data demo_lead_total;
 	label floor_ug = 'Floor, FAAS';
 	label window_ug = 'Window, FAAS';
 	if demo and L20;
-
 run;
 
 data demo_paq_b;
