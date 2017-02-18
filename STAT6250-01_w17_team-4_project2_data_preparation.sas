@@ -323,15 +323,15 @@ run;
 
 *proc format statements;
 proc format;
-	value RIDRETH1_ 1 = 'Mexican American'
+	value race 1 = 'Mexican American'
 				   2 = 'Other Hispanic'
 				   3 = 'Non-Hispanic White'
 				   4 = 'Non-Hispanic Black'
 				   5 = 'Other Race - Including Multi-Racial';
-	value DCDSTAT_ 1 = 'Floor Only'
+	value dust_sample 1 = 'Floor Only'
 				  2 = 'Window Only'
 				  3 = 'Floor and Window';
-	value DCD030_ 2 = 'Living Room/Family Room/Den'
+	value room_sample 2 = 'Living Room/Family Room/Den'
 				 3 = 'Dining Room'
 				 4 = 'Kitchen'
 				 5 = 'Bedroom'
