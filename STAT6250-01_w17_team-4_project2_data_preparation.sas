@@ -319,8 +319,7 @@ run;
 data demo_lead_b;
 	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
 	by SEQN;
-	demo = A;
-	L20 = B;
+	if A and B;
 run;
 
 data demo_lead_c;
@@ -333,6 +332,12 @@ run;
 
 data demo_lead_total;
 	set demo_lead_b demo_lead_c;
+	keep RIDAGEYR
+		 DCD030
+		 DCD070A
+		 LBXDFS
+	   	 LBXDFSF
+		 LBXDDWS;
 run;
 
 data demo_paq_b;
