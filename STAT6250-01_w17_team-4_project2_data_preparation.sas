@@ -333,6 +333,7 @@ run;
 data demo_lead_total;
 	set demo_lead_b demo_lead_c;
 	keep RIDAGEYR
+		 RIDRETH1
 		 DCD030
 		 DCD070A
 		 LBXDFS
