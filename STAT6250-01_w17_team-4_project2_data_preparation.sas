@@ -308,18 +308,45 @@ proc sort
     ;
 run;
 
+*PROC contents statements to get variables;
 proc contents data=demo_b_raw varnum;
 run;
 
 proc contents data=demo_c_raw varnum;
 run;
 
+proc contents data=l20_b_raw varnum;
+run;
+
+proc contents data=l20_c_raw varnum;
+run;
+
+*proc format statements;
+proc format;
+	value race 1 = 'Mexican American'
+				   2 = 'Other Hispanic'
+				   3 = 'Non-Hispanic White'
+				   4 = 'Non-Hispanic Black'
+				   5 = 'Other Race - Including Multi-Racial';
+	value dust_sample 1 = 'Floor Only'
+				  2 = 'Window Only'
+				  3 = 'Floor and Window';
+	value room_sample 2 = 'Living Room/Family Room/Den'
+				 3 = 'Dining Room'
+				 4 = 'Kitchen'
+				 5 = 'Bedroom'
+				 7 = 'Another room';
+run;
+
+
+*Create analytic dataset for lead exposure;
 
 *Merge datasets;
 data demo_lead_b;
 	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
 	by SEQN;
-	if A and B;
+	demo = A;
+	L20 = B;
 run;
 
 data demo_lead_c;
@@ -329,15 +356,25 @@ data demo_lead_c;
 	L20 = B;
 run;
 
-
-data demo_lead_total;
+/*Dataset for lead exposure*/
+data demo_lead_total (keep=race dust_sample room_sample floor_ug window_ug mean_ug);
 	set demo_lead_b demo_lead_c;
-	keep RIDAGEYR
-		 DCD030
-		 DCD070A
-		 LBXDFS
-	   	 LBXDFSF
-		 LBXDDWS;
+	rename  SSDSRVYR = survey_year
+			RIDRETH1 = race
+			DCDSTAT = dust_sample
+			DCD030 = room_sample
+			LBXDFSF = floor_ug
+			LBDDWS = window_ug;
+	label SSDSRVYR = 'Survey Cycle';
+	label RIDRETH1 = 'Reported Race';
+	label DCDSTAT = 'Dust Sample Status';
+	label DCD030 = 'Room where samples taken';
+	label LBXDFSF = 'Floor, FAAS';
+	label LBDDWS = 'Window, FAAS';
+		/*Create a mean variable for both window and lead exposure*/
+	/*If one variable is missing, it just takes the other one*/
+	mean_ug = mean(LBXDFSF,LBDDWS);
+	if demo AND L20;
 run;
 
 data demo_paq_b;
