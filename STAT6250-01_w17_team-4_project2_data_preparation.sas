@@ -401,7 +401,7 @@ data demo_paq_b;
 run;
 
 data demo_paq_c;
-    merge demo_c_raw_sorted (IN=A) paq_c_raw_sorted (IN=B);
+    merge demo_c_raw_sorted(rename=(PAD160=PAD160Y1)) (IN=A) paq_c_raw_sorted(rename=(PAD160=PAD160Y2)) (IN=B);
     by SEQN;
     if A and B;
 run;
@@ -416,6 +416,12 @@ data demo_paq_total;
 	RIAGENDR
 	RIDAGEYR
 	INDFMINC
+	PAQ180
+	PAD160Y1
+	PAD160Y2
+	PAD460
+	SDDSRVYR
+
     ;
     keep
     SEQN 
@@ -426,6 +432,12 @@ data demo_paq_total;
 	RIAGENDR
 	RIDAGEYR
 	INDFMINC
+	PAQ180
+	PAD160Y1
+	PAD160Y2
+	PAD460
+	SDDSRVYR
+
     ;
     set demo_paq_b demo_paq_c;
 run;
@@ -439,10 +451,16 @@ data demo_paq_analytic_file;
 	RIAGENDR= Gender
 	RIDAGEYR= Age
 	INDFMINC= Annual_Family_Income
+	PAQ180= Avg_Physical_Activity
+	PAD160Y1= Avg_Time_Activity_2001
+	PAD160Y1= Avg_Time_Activity_2003
+	PAD460= Avg_No_Of_Times
+	SDDSRVYR = Year_of_Recording       
 	
     ;
     
     
     set demo_paq_total;
 run;
+
 
