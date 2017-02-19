@@ -354,7 +354,7 @@ run;
 
 data demo_paq_total;
     retain
-        SEQN 
+    SEQN 
 	PAD020
 	PAQ050Q
 	PAQ050U
@@ -362,24 +362,24 @@ data demo_paq_total;
 	RIAGENDR
 	RIDAGEYR
 	INDFMINC
-     ;
-     keep
-         SEQN 
-	 PAD020
-	 PAQ050Q
-	 PAQ050U
-	 PAD080
-	 RIAGENDR
-	 RIDAGEYR
-	 INDFMINC
+    ;
+    keep
+    SEQN 
+	PAD020
+	PAQ050Q
+	PAQ050U
+	PAD080
+	RIAGENDR
+	RIDAGEYR
+	INDFMINC
     ;
     set demo_paq_b demo_paq_c;
 run;
 
 data demo_paq_analytic_file;
     rename 
-        PAD020= Walk_bike_Status
-	PAQ050Q= Times_Walk_Bike
+    PAD020= WalkBike_Status
+	PAQ050Q= Times_WalkBike
 	PAQ050U= Unit_Measure
 	PAD080= Minutes_Day
 	RIAGENDR= Gender
