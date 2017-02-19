@@ -76,7 +76,8 @@ run;
 
 proc means data= demo_paq_analytic_file;
     class Age;
-    var Avg_level_physical_activity;
+    var Avg_Physical_Activity;
+    where Year_of_Recording=3;
     format 
         Age Age_fmt.
     ;
@@ -96,8 +97,20 @@ from the precious year.
 Note: This uses the variable PAD160 from PAQ_B and RIDAGEYR from DEMO_B and 
 compares it with variables PAD160 from PAQ_C and RIDAGEYR from DEMO_C
 
-Methodology:
+Methodology: Link the SEQN from the DEMO dataset to the SEQN of the PAQ
+dataset to determine the RIDAGEYR for each SEQN and form age bins and use the 
+PROC MEANS procedure to find out the average time spent strength training
+activity was performed by the particular age group for different years
 ;
+
+
+proc means data= demo_paq_analytic_file;
+    class Age;
+    var Avg_Time_Activity_2001 Avg_Time_Activity_2003;
+    format 
+        Age Age_fmt.
+    ;
+run;
 
 
 *******************************************************************************;
@@ -107,11 +120,29 @@ Methodology:
 Question: What is the average “number of times past 30 days” (variable that 
 describes that activates for strength training) for each age group ?
 
-Rationale: This would help to estimate the time different groups of people 
-spend on walking and biking.
+Rationale: This will identify the age group of the respondents who include 
+strength training in their regular activity routine.
 
-Note: This will identify the age group of the respondents who include strength 
-training in their regular activity routine.
+Note: This uses the variable PAD460 from the PAQ dataset and the RIDAGEYR 
+from the DEMO dataset.
 
-Methodology:
+Methodology: Link the SEQN from the DEMO_C dataset to the SEQN of the PAQ_C 
+dataset to determine the RIDAGEYR for each SEQN and form age bins and use the 
+PROC MEANS procedure to find out the average number of times strength training
+activity was performed by the particular age group.
 ;
+
+proc means data= demo_paq_analytic_file;
+    class Age;
+    var Avg_No_Of_Times;
+    where Year_of_Recording=3;
+    format 
+        Age Age_fmt.
+    ;
+run;
+
+
+
+
+
+
