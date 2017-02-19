@@ -59,20 +59,20 @@ display the first 10 rows of the sorted dataset.
 
 data walk_bike_time;
     length Total_Time_WalkBike 8 ;
-	set demo_paq_analytic_file;
-	if 
+    set demo_paq_analytic_file;
+    if 
         Unit_Measure=1        
     then
         Total_Time_WalkBike=30*Minutes_Day;
-	else if 
+    else if 
         Unit_Measure=2   
     then 
         Total_Time_WalkBike=4*Times_WalkBike*Minutes_Day;
-	else if 
+    else if 
         Unit_Measure=3   
     then 
         Total_Time_WalkBike=Times_WalkBike*Minutes_Day;
-	else
+    else
         Total_Time_WalkBike=0;
 run;
 
@@ -104,42 +104,42 @@ to create cross-table.
 
 proc format;
      value WalkBike_Status_fmt
-	    1="Yes"
-		OTHER="No"
+	 1="Yes"
+	 OTHER="No"
     ;
     value Age_fmt
-        low-20="<20"
-		20-30="20-30"
-		30-40="30-40"
-		40-50="40-50"
-		50-60="50-60"
-		60-70="60-70"
-		70-high="70 above"
+        low-20="<=20"
+	21-30="21-30"
+	31-40="31-40"
+	41-50="41-50"
+	51-60="51-60"
+	61-70="61-70"
+	71-high=">70"
      ;
-	 value Gender_fmt
-	     1="Male"
-		 2="Female"
-	 ;
+     value Gender_fmt
+	 1="Male"
+	 2="Female"
+     ;
      value Annual_Family_Income_fmt
-	     low-20="<20k"
-		 20-40="20-40k"
-		 40-60="40-60k"
-		 60-80="60-80k"
-		 80-high="80 above"
-     ;  
+	 low-5="<25k"
+	 6-8="25-<55k"
+	 9-10="55-<75k"
+	 11=">75k"
+	 OTHER="<25k"
+     ;
 run;
 
 proc freq data=walk_bike_time;
     tables
-	    WalkBike_Status*
-		(Gender Age Annual_Family_Income)
+	 WalkBike_Status*
+	 (Gender Age Annual_Family_Income)
          / missing norow nofreq nopercent;
     format 
-	    WalkBike_Status WalkBike_Status_fmt.
+	WalkBike_Status WalkBike_Status_fmt.
         Gender Gender_fmt.
-		Age Age_fmt.
-		Annual_Family_Income Annual_Family_Income_fmt.
-	;      
+	Age Age_fmt.
+	Annual_Family_Income Annual_Family_Income_fmt.
+    ;      
 run;
 
 *******************************************************************************;
@@ -160,9 +160,9 @@ proc means mean data=walk_bike_time;
     var Total_Time_WalkBike;
     where WalkBike_Status=1;
 	format 
-        Gender Gender_fmt.
-		Age Age_fmt.
-		Annual_Family_Income Annual_Family_Income_fmt.
+            Gender Gender_fmt.
+	    Age Age_fmt.
+	    Annual_Family_Income Annual_Family_Income_fmt.
 	;
 run;
 
