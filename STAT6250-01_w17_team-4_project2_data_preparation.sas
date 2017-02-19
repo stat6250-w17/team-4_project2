@@ -336,6 +336,18 @@ proc format;
 				 4 = 'Kitchen'
 				 5 = 'Bedroom'
 				 7 = 'Another room';
+	value survey_year 2 = "2001-2002"
+			   3 = "2003-2004";
+	value country_birth 1 = "Born in 50 U.S. States or
+	Washington D.C."
+						2 = "Born in Mexico"
+						3 = "Born Elsewhere"
+						7 = "Refused"
+						9 = "Don't know";
+	value citizen 1 = "Citizen by birth or naturalization"
+				  2 = "Not a citizen of the US"
+				  7 = "Refused"
+				  9 = "Don't know";
 run;
 
 
@@ -357,21 +369,26 @@ data demo_lead_c;
 run;
 
 /*Dataset for lead exposure*/
-data demo_lead_total (keep=race dust_sample room_sample floor_ug window_ug mean_ug);
+data demo_lead_total (keep=survey_year country_birth citizen
+race dust_sample room_sample floor_ug window_ug mean_ug);
 	set demo_lead_b demo_lead_c;
-	rename  SSDSRVYR = survey_year
+	rename  SDDSRVYR = survey_year
+			DMDBORN = country_birth
+			DMDCITZN = citizen
 			RIDRETH1 = race
 			DCDSTAT = dust_sample
 			DCD030 = room_sample
 			LBXDFSF = floor_ug
 			LBDDWS = window_ug;
-	label SSDSRVYR = 'Survey Cycle';
+	label SDDSRVYR = 'Survey Cycle';
+	label DMDBORN = 'Country of Origin';
+	label DMDCITZN = 'Citizenship Status';
 	label RIDRETH1 = 'Reported Race';
 	label DCDSTAT = 'Dust Sample Status';
 	label DCD030 = 'Room where samples taken';
 	label LBXDFSF = 'Floor, FAAS';
 	label LBDDWS = 'Window, FAAS';
-		/*Create a mean variable for both window and lead exposure*/
+	/*Create a mean variable for both window and lead exposure*/
 	/*If one variable is missing, it just takes the other one*/
 	mean_ug = mean(LBXDFSF,LBDDWS);
 	if demo AND L20;
@@ -391,7 +408,7 @@ run;
 
 data demo_paq_total;
     retain
-        SEQN 
+    SEQN 
 	PAD020
 	PAQ050Q
 	PAQ050U
@@ -399,24 +416,24 @@ data demo_paq_total;
 	RIAGENDR
 	RIDAGEYR
 	INDFMINC
-     ;
-     keep
-         SEQN 
-	 PAD020
-	 PAQ050Q
-	 PAQ050U
-	 PAD080
-	 RIAGENDR
-	 RIDAGEYR
-	 INDFMINC
+    ;
+    keep
+    SEQN 
+	PAD020
+	PAQ050Q
+	PAQ050U
+	PAD080
+	RIAGENDR
+	RIDAGEYR
+	INDFMINC
     ;
     set demo_paq_b demo_paq_c;
 run;
 
 data demo_paq_analytic_file;
     rename 
-        PAD020= Walk_bike_Status
-	PAQ050Q= Times_Walk_Bike
+    PAD020= WalkBike_Status
+	PAQ050Q= Times_WalkBike
 	PAQ050U= Unit_Measure
 	PAD080= Minutes_Day
 	RIAGENDR= Gender
