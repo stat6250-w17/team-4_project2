@@ -357,7 +357,7 @@ data demo_lead_c;
 run;
 
 /*Dataset for lead exposure*/
-data demo_lead_total (keep=race dust_sample room_sample floor_ug window_ug mean_ug);
+data demo_lead_total (keep=survey_year race dust_sample room_sample floor_ug window_ug mean_ug);
 	set demo_lead_b demo_lead_c;
 	rename  SSDSRVYR = survey_year
 			RIDRETH1 = race
