@@ -460,7 +460,29 @@ data demo_paq_analytic_file;
     ;
     
     
-    set demo_paq_total;
+    set 
+        demo_paq_total
+    ;
+	length Total_Time_WalkBike best12. ;
+    
+    if 
+        Unit_Measure=1        
+    then
+        Total_Time_WalkBike=30*Minutes_Day
+    ;
+    else if 
+        Unit_Measure=2   
+    then 
+        Total_Time_WalkBike=4*Times_WalkBike*Minutes_Day
+    ;
+    else if 
+        Unit_Measure=3   
+    then 
+        Total_Time_WalkBike=Times_WalkBike*Minutes_Day
+    ;
+    else
+        Total_Time_WalkBike=0
+    ;
 run;
 
 
