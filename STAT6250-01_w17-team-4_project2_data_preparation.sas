@@ -323,31 +323,66 @@ run;
 
 *proc format statements;
 proc format;
-	value race 1 = 'Mexican American'
-				   2 = 'Other Hispanic'
-				   3 = 'Non-Hispanic White'
-				   4 = 'Non-Hispanic Black'
-				   5 = 'Other Race - Including Multi-Racial';
-	value dust_sample 1 = 'Floor Only'
-				  2 = 'Window Only'
-				  3 = 'Floor and Window';
-	value room_sample 2 = 'Living Room/Family Room/Den'
-				 3 = 'Dining Room'
-				 4 = 'Kitchen'
-				 5 = 'Bedroom'
-				 7 = 'Another room';
-	value survey_year 2 = "2001-2002"
-			   3 = "2003-2004";
-	value country_birth 1 = "Born in 50 U.S. States or
-	Washington D.C."
-						2 = "Born in Mexico"
-						3 = "Born Elsewhere"
-						7 = "Refused"
-						9 = "Don't know";
-	value citizen 1 = "Citizen by birth or naturalization"
-				  2 = "Not a citizen of the US"
-				  7 = "Refused"
-				  9 = "Don't know";
+	 value race
+         1 = 'Mexican American'
+		 2 = 'Other Hispanic'
+		 3 = 'Non-Hispanic White'
+		 4 = 'Non-Hispanic Black'
+		 5 = 'Other Race - Including Multi-Racial'
+     ;
+	 value dust_sample
+         1 = 'Floor Only'
+		 2 = 'Window Only'
+		 3 = 'Floor and Window'
+     ;
+	 value room_sample 
+         2 = 'Living Room/Family Room/Den'
+		 3 = 'Dining Room'
+		 4 = 'Kitchen'
+		 5 = 'Bedroom'
+		 7 = 'Another room'
+     ;
+	 value survey_year 
+         2 = "2001-2002"
+		 3 = "2003-2004"
+     ;
+	 value country_birth 
+         1 = "Born in 50 U.S. States or	Washington D.C."
+		 2 = "Born in Mexico"
+		 3 = "Born Elsewhere"
+		 7 = "Refused"
+		 9 = "Don't know"
+     ;
+	 value citizen 
+         1 = "Citizen by birth or naturalization"
+		 2 = "Not a citizen of the US"
+		 7 = "Refused"
+		 9 = "Don't know"
+     ;
+	 value WalkBike_Status_fmt
+	     1="Yes"
+	     OTHER="No"
+     ;
+     value Age_fmt
+         low-20="<=20"
+	     21-30="21-30"
+	     31-40="31-40"
+	     41-50="41-50"
+	     51-60="51-60"
+	     61-70="61-70"
+	     71-high=">70"
+     ;
+     value Gender_fmt
+	     1="Male"
+	     2="Female"
+     ;
+     value Annual_Family_Income_fmt
+	     low-5="<25k"
+	     6-8="25-<55k"
+	     9-10="55-<75k"
+	     11=">75k"
+	     OTHER="<25k"
+     ;
 run;
 
 
@@ -394,73 +429,122 @@ race dust_sample room_sample floor_ug window_ug mean_ug);
 	if demo AND L20;
 run;
 
+*Create Dataset for physical activities;
+*combine demo_b and paq_b horizontally;
 data demo_paq_b;
-    merge demo_b_raw_sorted (IN=A) paq_b_raw_sorted (IN=B);
-    by SEQN;
-    if A and B;
+     merge 
+         demo_b_raw_sorted (IN=A) 
+         paq_b_raw_sorted  (IN=B)
+     ;
+     by SEQN;
+     if A and B;
 run;
 
+*combine demo_c and paq_c horizontally;
 data demo_paq_c;
-    merge demo_c_raw_sorted(rename=(PAD160=PAD160Y1)) (IN=A) paq_c_raw_sorted(rename=(PAD160=PAD160Y2)) (IN=B);
-    by SEQN;
-    if A and B;
+     merge 
+         demo_c_raw_sorted (IN=A) 
+         paq_c_raw_sorted  (IN=B)
+     ;
+     by SEQN;
+     if A and B;
 run;
 
+*combine demo_paq_b and demo_paq_c vertically;
 data demo_paq_total;
-    retain
-    SEQN 
-	PAD020
-	PAQ050Q
-	PAQ050U
-	PAD080
-	RIAGENDR
-	RIDAGEYR
-	INDFMINC
-	PAQ180
-	PAD160Y1
-	PAD160Y2
-	PAD460
-	SDDSRVYR
-
-    ;
-    keep
-    SEQN 
-	PAD020
-	PAQ050Q
-	PAQ050U
-	PAD080
-	RIAGENDR
-	RIDAGEYR
-	INDFMINC
-	PAQ180
-	PAD160Y1
-	PAD160Y2
-	PAD460
-	SDDSRVYR
-
-    ;
-    set demo_paq_b demo_paq_c;
-run;
-
-data demo_paq_analytic_file;
-    rename 
-    PAD020= WalkBike_Status
-	PAQ050Q= Times_WalkBike
-	PAQ050U= Unit_Measure
-	PAD080= Minutes_Day
-	RIAGENDR= Gender
-	RIDAGEYR= Age
-	INDFMINC= Annual_Family_Income
-	PAQ180= Avg_Physical_Activity
-	PAD160Y1= Avg_Time_Activity_2001
-	PAD160Y1= Avg_Time_Activity_2003
-	PAD460= Avg_No_Of_Times
-	SDDSRVYR = Year_of_Recording       
+     set 
+         demo_paq_b(rename=(PAD160=PAD160Y1))
+         demo_paq_c(rename=(PAD160=PAD160Y2)) 
+     ;
 	
-    ;
-    
-    
-    set demo_paq_total;
 run;
 
+* creat analytic file for physical activities;
+*create a new variable Total_Time_WalkBike, the total time that an individual
+spends on walking or biking,and compute according to variable PAQ050U, unit 
+of measure,which is the unit: day, week, and month(1="day",2="week", and 
+3="month"),an individual often walks or bikes several times per.;
+data demo_paq_analytic_file;
+     retain
+         SEQN 
+	     PAD020
+	     PAQ050Q
+	     PAQ050U
+	     PAD080
+	     RIAGENDR
+	     RIDAGEYR
+	     INDFMINC
+	     PAQ180
+	     PAD160Y1
+	     PAD160Y2
+	     PAD460
+	     SDDSRVYR
+		 Total_Time_WalkBike
+     ;
+     keep
+         SEQN 
+         PAD020
+	     PAQ050Q
+	     PAQ050U
+         PAD080
+		 RIAGENDR
+	     RIDAGEYR
+	     INDFMINC
+	     PAQ180
+	     PAD160Y1
+	     PAD160Y2
+	     PAD460
+	     SDDSRVYR
+         Total_Time_WalkBike
+     ;
+	 rename 
+         PAD020= WalkBike_Status
+	     PAQ050Q= Times_WalkBike
+	     PAQ050U= Unit_Measure
+	     PAD080= Minutes_Day
+	     RIAGENDR= Gender
+	     RIDAGEYR= Age
+	     INDFMINC= Annual_Family_Income
+	     PAQ180= Avg_Physical_Activity
+	     PAD160Y1= Avg_Time_Activity_2001
+	     PAD160Y2= Avg_Time_Activity_2003
+	     PAD460= Avg_No_Of_Times
+	     SDDSRVYR = Year_of_Recording       
+	;
+     set  
+         demo_paq_total
+     ;
+	 if 
+         PAQ050U=1        
+     then
+         Total_Time_WalkBike=30*PAD080
+     ;
+     else if 
+         PAQ050U=2 and  PAQ050Q<8 
+     then 
+         Total_Time_WalkBike=4*PAQ050Q*PAD080
+     ;
+	 else if 
+         PAQ050U=2 and  PAQ050Q>7 
+     then 
+         Total_Time_WalkBike=30*PAD080
+     ;
+     else if 
+         PAQ050U=3    
+     then 
+         Total_Time_WalkBike=PAQ050Q*PAD080
+     ;
+     else
+         Total_Time_WalkBike=0
+     ;
+run;
+
+* create copy of analytic file sorted by Total_Time_WalkBike for use
+in data analysis by LZ;
+proc sort 
+         data=demo_paq_analytic_file 
+         out=demo_paq_analytic_file_sorted
+     ;
+     by descending Total_Time_WalkBike;
+run;
 
