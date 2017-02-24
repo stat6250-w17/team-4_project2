@@ -428,8 +428,9 @@ race dust_sample room_sample floor_ug window_ug mean_ug);
 	mean_ug = mean(LBXDFSF,LBDDWS);
 	if demo AND L20;
 run;
-*Dataset for physical activities;
 
+*Create Dataset for physical activities;
+*combine demo_b and paq_b horizontally;
 data demo_paq_b;
      merge 
          demo_b_raw_sorted (IN=A) 
@@ -439,6 +440,7 @@ data demo_paq_b;
      if A and B;
 run;
 
+*combine demo_c and paq_c horizontally;
 data demo_paq_c;
      merge 
          demo_c_raw_sorted (IN=A) 
@@ -448,7 +450,21 @@ data demo_paq_c;
      if A and B;
 run;
 
+*combine demo_paq_b and demo_paq_c vertically;
 data demo_paq_total;
+     set 
+         demo_paq_b(rename=(PAD160=PAD160Y1))
+         demo_paq_c(rename=(PAD160=PAD160Y2)) 
+     ;
+	
+run;
+
+* creat analytic file for physical activities;
+*create a new variable Total_Time_WalkBike, the total time that an individual
+spends on walking or biking,and compute according to variable PAQ050U, unit 
+of measure,which is the unit: day, week, and month(1="day",2="week", and 
+3="month"),an individual often walks or bikes several times per.;
+data demo_paq_analytic_file;
      retain
          SEQN 
 	     PAD020
@@ -463,6 +479,7 @@ data demo_paq_total;
 	     PAD160Y2
 	     PAD460
 	     SDDSRVYR
+		 Total_Time_WalkBike
      ;
      keep
          SEQN 
@@ -470,7 +487,7 @@ data demo_paq_total;
 	     PAQ050Q
 	     PAQ050U
          PAD080
-	     RIAGENDR
+		 RIAGENDR
 	     RIDAGEYR
 	     INDFMINC
 	     PAQ180
@@ -478,17 +495,9 @@ data demo_paq_total;
 	     PAD160Y2
 	     PAD460
 	     SDDSRVYR
-
+         Total_Time_WalkBike
      ;
-     set 
-         demo_paq_b(rename=(PAD160=PAD160Y1))
-         demo_paq_c(rename=(PAD160=PAD160Y2)) 
-     ;
-run;
-* creat analytic file for physical activities;
-
-data demo_paq_analytic_file;
-     rename 
+	 rename 
          PAD020= WalkBike_Status
 	     PAQ050Q= Times_WalkBike
 	     PAQ050U= Unit_Measure
@@ -498,36 +507,44 @@ data demo_paq_analytic_file;
 	     INDFMINC= Annual_Family_Income
 	     PAQ180= Avg_Physical_Activity
 	     PAD160Y1= Avg_Time_Activity_2001
-	     PAD160Y1= Avg_Time_Activity_2003
+	     PAD160Y2= Avg_Time_Activity_2003
 	     PAD460= Avg_No_Of_Times
 	     SDDSRVYR = Year_of_Recording       
-	
-    ;
-    
-    
-    set 
-        demo_paq_total
-    ;
-	*length Total_Time_WalkBike 8 ;
-    
-    if 
-        Unit_Measure=1        
-    then
-        Total_Time_WalkBike=30*Minutes_Day
-    ;
-    else if 
-        Unit_Measure=2   
-    then 
-        Total_Time_WalkBike=4*Times_WalkBike*Minutes_Day
-    ;
-    else if 
-        Unit_Measure=3   
-    then 
-        Total_Time_WalkBike=Times_WalkBike*Minutes_Day
-    ;
-    else
-        Total_Time_WalkBike=0
-    ;
+	;
+     set  
+         demo_paq_total
+     ;
+	 if 
+         PAQ050U=1        
+     then
+         Total_Time_WalkBike=30*PAD080
+     ;
+     else if 
+         PAQ050U=2 and  PAQ050Q<8 
+     then 
+         Total_Time_WalkBike=4*PAQ050Q*PAD080
+     ;
+	 else if 
+         PAQ050U=2 and  PAQ050Q>7 
+     then 
+         Total_Time_WalkBike=30*PAD080
+     ;
+     else if 
+         PAQ050U=3    
+     then 
+         Total_Time_WalkBike=PAQ050Q*PAD080
+     ;
+     else
+         Total_Time_WalkBike=0
+     ;
 run;
 
+* create copy of analytic file sorted by Total_Time_WalkBike for use
+in data analysis by LZ;
+proc sort 
+         data=demo_paq_analytic_file 
+         out=demo_paq_analytic_file_sorted
+     ;
+     by descending Total_Time_WalkBike;
+run;
 
