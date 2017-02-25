@@ -61,6 +61,9 @@ proc means data=work.demo_lead_analytic_file;
 	format race race. survey_year survey_year.;
 run;
 
+title;
+footnote;
+
 *******************************************************************************;
 * Research Question Analysis 2;
 *******************************************************************************;
@@ -96,6 +99,9 @@ proc means data=work.demo_lead_analytic_file;
 	format country_birth country_birth. citizen citizen.;
 run;
 
+title;
+footnote;
+
 *******************************************************************************;
 * Research Question Analysis 3;
 *******************************************************************************;
@@ -124,3 +130,6 @@ proc means data=work.demo_lead_analytic_file;
 	where survey_year = 3;
 	var floor_ug  window_ug;
 run;
+
+title;
+footnote;
