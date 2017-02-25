@@ -181,32 +181,33 @@ https://github.com/stat6250/team-4_project2/blob/master/data/L20_C.xls?raw=true
 
 * load raw datasets over the wire, if they doesn't already exist;
 %macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
-    %put &=dsn;
-    %put &=url;
-    %put &=filetype;
-    %if
-        %sysfunc(exist(&dsn.)) = 0
-    %then
-        %do;
-            %put Loading dataset &dsn. over the wire now...;
-            filename tempfile TEMP;
-            proc http
-                method="get"
-                url="&url."
-                out=tempfile
-                ;
-            run;
-            proc import
-                file=tempfile
-                out=&dsn.
-                dbms=&filetype.;
-            run;
-            filename tempfile clear;
-        %end;
-    %else
-        %do;
-            %put Dataset &dsn. already exists. Please delete and try again.;
-        %end;
+     %put &=dsn;
+     %put &=url;
+     %put &=filetype;
+     %if
+         %sysfunc(exist(&dsn.)) = 0
+     %then
+         %do;
+             %put Loading dataset &dsn. over the wire now...;
+             filename tempfile TEMP;
+             proc http
+                 method="get"
+                 url="&url."
+                 out=tempfile
+                 ;
+             run;
+             proc import
+                 file=tempfile
+                 out=&dsn.
+                 dbms=&filetype.
+                 ;
+             run;
+             filename tempfile clear;
+         %end;
+     %else
+         %do;
+             %put Dataset &dsn. already exists. Please delete and try again.;
+         %end;
 %mend;
 %loadDataIfNotAlreadyAvailable(
     &inputDataset1DSN.,
@@ -243,82 +244,69 @@ https://github.com/stat6250/team-4_project2/blob/master/data/L20_C.xls?raw=true
 * sort and check raw datasets for duplicates with respect to their unique ids,
   removing blank rows, if needed;
 proc sort
-        nodupkey
-        data=DEMO_B_raw
-        dupout=DEMO_B_raw_dups
-        out=DEMO_B_raw_sorted(where=(not(missing(SEQN))))
-    ;
-    by
-        SEQN
-    ;
+         nodupkey
+         data=DEMO_B_raw
+         dupout=DEMO_B_raw_dups
+         out=DEMO_B_raw_sorted(where=(not(missing(SEQN))))
+     ;
+     by
+         SEQN
+     ;
 run;
 
 proc sort
-        nodupkey
-        data=DEMO_C_raw
-        dupout=DEMO_C_raw_dups
-        out=DEMO_C_raw_sorted(where=(not(missing(SEQN))))
-    ;
-    by
-        SEQN
-    ;
+         nodupkey
+         data=DEMO_C_raw
+         dupout=DEMO_C_raw_dups
+         out=DEMO_C_raw_sorted(where=(not(missing(SEQN))))
+     ;
+     by
+         SEQN
+     ;
 run;
 
 proc sort
-        nodupkey
-        data=PAQ_B_raw
-        dupout=PAQ_B_raw_dups
-        out=PAQ_B_raw_sorted(where=(not(missing(SEQN))))
-    ;
-    by
-        SEQN
-    ;
+         nodupkey
+         data=PAQ_B_raw
+         dupout=PAQ_B_raw_dups
+         out=PAQ_B_raw_sorted(where=(not(missing(SEQN))))
+     ;
+     by
+         SEQN
+     ;
 run;
 
 proc sort
-        nodupkey
-        data=PAQ_C_raw
-        dupout=PAQ_C_raw_dups
-        out=PAQ_C_raw_sorted(where=(not(missing(SEQN))))
-    ;
-    by
-        SEQN
-    ;
+         nodupkey
+         data=PAQ_C_raw
+         dupout=PAQ_C_raw_dups
+         out=PAQ_C_raw_sorted(where=(not(missing(SEQN))))
+     ;
+     by
+         SEQN
+     ;
 run;
 
 proc sort
-        nodupkey
-        data=L20_B_raw
-        dupout=L20_B_raw_dups
-        out=L20_B_raw_sorted(where=(not(missing(SEQN))))
-    ;
-    by
-        SEQN
-    ;
+         nodupkey
+         data=L20_B_raw
+         dupout=L20_B_raw_dups
+         out=L20_B_raw_sorted(where=(not(missing(SEQN))))
+     ;
+     by
+         SEQN
+     ;
 run;
 
 proc sort
-        nodupkey
-        data=L20_C_raw
-        dupout=L20_C_raw_dups
-        out=L20_C_raw_sorted(where=(not(missing(SEQN))))
-    ;
-    by
-        SEQN
-    ;
-run;
-
-*PROC contents statements to get variables;
-proc contents data=demo_b_raw varnum;
-run;
-
-proc contents data=demo_c_raw varnum;
-run;
-
-proc contents data=l20_b_raw varnum;
-run;
-
-proc contents data=l20_c_raw varnum;
+         nodupkey
+         data=L20_C_raw
+         dupout=L20_C_raw_dups
+         out=L20_C_raw_sorted(where=(not(missing(SEQN))))
+     ;
+     by
+         SEQN
+     ;
 run;
 
 *proc format statements;
@@ -390,17 +378,17 @@ run;
 
 *Merge datasets;
 data demo_lead_b;
-	merge demo_b_raw (IN=A) L20_b_raw (IN=B);
-	by SEQN;
-	demo = A;
-	L20 = B;
+	 merge demo_b_raw (IN=A) L20_b_raw (IN=B);
+	 by SEQN;
+	 demo = A;
+	 L20 = B;
 run;
 
 data demo_lead_c;
-	merge demo_c_raw (IN=A) L20_c_raw (IN=B);
-	by SEQN;
-	demo = A;
-	L20 = B;
+	 merge demo_c_raw (IN=A) L20_c_raw (IN=B);
+	 by SEQN;
+	 demo = A;
+	 L20 = B;
 run;
 
 /*Dataset for lead exposure*/
@@ -530,9 +518,14 @@ data demo_paq_analytic_file;
          Total_Time_WalkBike=30*PAD080
      ;
      else if 
-         PAQ050U=3    
+         PAQ050U=3  and  PAQ050Q<31   
      then 
          Total_Time_WalkBike=PAQ050Q*PAD080
+     ;
+	 else if 
+         PAQ050U=3  and  PAQ050Q>30   
+     then 
+         Total_Time_WalkBike=30*PAD080
      ;
      else
          Total_Time_WalkBike=0
