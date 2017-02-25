@@ -308,18 +308,6 @@ proc sort
     ;
 run;
 
-*PROC contents statements to get variables;
-proc contents data=demo_b_raw varnum;
-run;
-
-proc contents data=demo_c_raw varnum;
-run;
-
-proc contents data=l20_b_raw varnum;
-run;
-
-proc contents data=l20_c_raw varnum;
-run;
 
 *proc format statements;
 proc format;
@@ -364,13 +352,13 @@ proc format;
 	     OTHER="No"
      ;
      value Age_fmt
-         low-20="<=20"
-	     21-30="21-30"
-	     31-40="31-40"
-	     41-50="41-50"
-	     51-60="51-60"
-	     61-70="61-70"
-	     71-high=">70"
+         low-20="Below 20 years"
+	     21-30="Between 21 and 30 years"
+	     31-40="Between 31 and 40 years"
+	     41-50="Between 41 and 50 years"
+	     51-60="Between 51 and 60 years"
+	     61-70="Between 61 and 70 years"
+	     71-high="Above 71 years"
      ;
      value Gender_fmt
 	     1="Male"

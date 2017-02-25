@@ -62,17 +62,6 @@ average physical activity of each age group
 ;
 
 
-proc format;
-    value Age_fmt
-        low-20=“Age group1 - below 20”
-        21-30=“Age group2 - 21 to 30”
-        30-40="Age group3 - 31-40"
-	40-50="Age group4 - 41-50"
-	50-60="Age group5 - 51-60"
-	60-70="Age group6 - 61-70"
-	71-high="Age group8 - 71 and above"
-     ;
-run;
 
 proc means data= demo_paq_analytic_file;
     class Age;
