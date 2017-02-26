@@ -312,65 +312,65 @@ run;
 
 *proc format statements;
 proc format;
-	 value race
+     value race
          1 = 'Mexican American'
-		 2 = 'Other Hispanic'
-		 3 = 'Non-Hispanic White'
-		 4 = 'Non-Hispanic Black'
-		 5 = 'Other Race - Including Multi-Racial'
+         2 = 'Other Hispanic'
+         3 = 'Non-Hispanic White'
+         4 = 'Non-Hispanic Black'
+         5 = 'Other Race - Including Multi-Racial'
      ;
-	 value dust_sample
+     value dust_sample
          1 = 'Floor Only'
-		 2 = 'Window Only'
-		 3 = 'Floor and Window'
+         2 = 'Window Only'
+         3 = 'Floor and Window'
      ;
-	 value room_sample 
+     value room_sample 
          2 = 'Living Room/Family Room/Den'
-		 3 = 'Dining Room'
-		 4 = 'Kitchen'
-		 5 = 'Bedroom'
-		 7 = 'Another room'
+         3 = 'Dining Room'
+         4 = 'Kitchen'
+         5 = 'Bedroom'
+         7 = 'Another room'
      ;
-	 value survey_year 
+     value survey_year 
          2 = "2001-2002"
-		 3 = "2003-2004"
+         3 = "2003-2004"
      ;
-	 value country_birth 
-         1 = "Born in 50 U.S. States or	Washington D.C."
-		 2 = "Born in Mexico"
-		 3 = "Born Elsewhere"
-		 7 = "Refused"
-		 9 = "Don't know"
+     value country_birth 
+         1 = "Born in 50 U.S. States or Washington D.C."
+         2 = "Born in Mexico"
+         3 = "Born Elsewhere"
+         7 = "Refused"
+         9 = "Don't know"
      ;
-	 value citizen 
+     value citizen 
          1 = "Citizen by birth or naturalization"
-		 2 = "Not a citizen of the US"
-		 7 = "Refused"
-		 9 = "Don't know"
+         2 = "Not a citizen of the US"
+         7 = "Refused"
+         9 = "Don't know"
      ;
-	 value WalkBike_Status_fmt
-	     1="Yes"
-	     2-9="No"
+     value WalkBike_Status_fmt
+         1="Yes"
+         2-9="No"
      ;
      value Age_fmt
          low-20="<=20"
-	     21-30="21-30"
-	     31-40="31-40"
-	     41-50="41-50"
-	     51-60="51-60"
-	     61-70="61-70"
-	     71-high=">70"
+         21-30="21-30"
+         31-40="31-40"
+         41-50="41-50"
+         51-60="51-60"
+         61-70="61-70"
+         71-high=">70"
      ;
      value Gender_fmt
-	     1="Male"
-	     2="Female"
+         1="Male"
+         2="Female"
      ;
      value Annual_Family_Income_fmt
-	     low-5="<25k"
-	     6-8="25-<55k"
-	     9-10="55-<75k"
-	     11=">75k"
-	     OTHER="<25k"
+         low-5="<25k"
+         6-8="25-<55k"
+         9-10="55-<75k"
+         11=">75k"
+         OTHER="<25k"
      ;
 run;
 
@@ -402,27 +402,27 @@ data demo_lead_analytic_file(
          room_sample
          floor_ug
          window_ug);
-	set demo_lead_b demo_lead_c;
+    set demo_lead_b demo_lead_c;
     rename  SDDSRVYR = survey_year
-			DMDBORN = country_birth
-			DMDCITZN = citizen
-			RIDRETH1 = race
-			DCDSTAT = dust_sample
-			DCD030 = room_sample
-			LBXDFSF = floor_ug
-			LBDDWS = window_ug;
-	label SDDSRVYR = 'Survey Cycle';
-	label DMDBORN = 'Country of Origin';
-	label DMDCITZN = 'Citizenship Status';
-	label RIDRETH1 = 'Reported Race';
-	label DCDSTAT = 'Dust Sample Status';
-	label DCD030 = 'Room where samples taken';
-	label LBXDFSF = 'Floor, FAAS';
-	label LBDDWS = 'Window, FAAS';
-	/*Create a mean variable for both window and lead exposure*/
-	/*If one variable is missing, it just takes the other one*/
-	mean_ug = mean(LBXDFSF,LBDDWS);
-	if demo AND L20;
+            DMDBORN = country_birth
+            DMDCITZN = citizen
+            RIDRETH1 = race
+            DCDSTAT = dust_sample
+            DCD030 = room_sample
+            LBXDFSF = floor_ug
+            LBDDWS = window_ug;
+    label SDDSRVYR = 'Survey Cycle';
+    label DMDBORN = 'Country of Origin';
+    label DMDCITZN = 'Citizenship Status';
+    label RIDRETH1 = 'Reported Race';
+    label DCDSTAT = 'Dust Sample Status';
+    label DCD030 = 'Room where samples taken';
+    label LBXDFSF = 'Floor, FAAS';
+    label LBDDWS = 'Window, FAAS';
+    /*Create a mean variable for both window and lead exposure*/
+    /*If one variable is missing, it just takes the other one*/
+    mean_ug = mean(LBXDFSF,LBDDWS);
+    if demo AND L20;
 run;
 
 *Create Dataset for physical activities;
@@ -452,7 +452,7 @@ data demo_paq_total;
          demo_paq_b(rename=(PAD160=PAD160Y1))
          demo_paq_c(rename=(PAD160=PAD160Y2)) 
      ;
-	
+    
 run;
 
 *creat analytic file for physical activities;
@@ -464,54 +464,54 @@ on doing these activities days.;
 data demo_paq_analytic_file;
      retain
          SEQN 
-	     PAD020
-	     PAQ050Q
-	     PAQ050U
-	     PAD080
-	     RIAGENDR
-	     RIDAGEYR
-	     INDFMINC
-	     PAQ180
-	     PAD160Y1
-	     PAD160Y2
-	     PAD460
-	     SDDSRVYR
-		 Total_Time_WalkBike
+         PAD020
+         PAQ050Q
+         PAQ050U
+         PAD080
+         RIAGENDR
+         RIDAGEYR
+         INDFMINC
+         PAQ180
+         PAD160Y1
+         PAD160Y2
+         PAD460
+         SDDSRVYR
+         Total_Time_WalkBike
      ;
      keep
          SEQN 
          PAD020
-	     PAQ050Q
-	     PAQ050U
+         PAQ050Q
+         PAQ050U
          PAD080
-		 RIAGENDR
-	     RIDAGEYR
-	     INDFMINC
-	     PAQ180
-	     PAD160Y1
-	     PAD160Y2
-	     PAD460
-	     SDDSRVYR
+         RIAGENDR
+         RIDAGEYR
+         INDFMINC
+         PAQ180
+         PAD160Y1
+         PAD160Y2
+         PAD460
+         SDDSRVYR
          Total_Time_WalkBike
      ;
-	 rename 
+     rename 
          PAD020= WalkBike_Status
-	     PAQ050Q= Times_WalkBike
-	     PAQ050U= Unit_Measure
-	     PAD080= Minutes_Day
-	     RIAGENDR= Gender
-	     RIDAGEYR= Age
-	     INDFMINC= Annual_Family_Income
-	     PAQ180= Avg_Physical_Activity
-	     PAD160Y1= Avg_Time_Activity_2001
-	     PAD160Y2= Avg_Time_Activity_2003
-	     PAD460= Avg_No_Of_Times
-	     SDDSRVYR = Year_of_Recording       
-	;
+         PAQ050Q= Times_WalkBike
+         PAQ050U= Unit_Measure
+         PAD080= Minutes_Day
+         RIAGENDR= Gender
+         RIDAGEYR= Age
+         INDFMINC= Annual_Family_Income
+         PAQ180= Avg_Physical_Activity
+         PAD160Y1= Avg_Time_Activity_2001
+         PAD160Y2= Avg_Time_Activity_2003
+         PAD460= Avg_No_Of_Times
+         SDDSRVYR = Year_of_Recording       
+    ;
      set  
          demo_paq_total
      ;
-	 if 
+     if 
          PAQ050U=1        
      then
          Total_Time_WalkBike=30*PAD080
@@ -521,7 +521,7 @@ data demo_paq_analytic_file;
      then 
          Total_Time_WalkBike=4*PAQ050Q*PAD080
      ;
-	 else if 
+     else if 
          PAQ050U=2 and  PAQ050Q>7 
      then 
          Total_Time_WalkBike=30*PAD080
@@ -531,7 +531,7 @@ data demo_paq_analytic_file;
      then 
          Total_Time_WalkBike=PAQ050Q*PAD080
      ;
-	 else if 
+     else if 
          PAQ050U=3  and  PAQ050Q>30   
      then 
          Total_Time_WalkBike=30*PAD080
