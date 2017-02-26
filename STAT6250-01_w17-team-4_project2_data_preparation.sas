@@ -379,24 +379,31 @@ run;
 
 *Merge datasets;
 data demo_lead_b;
-	 merge demo_b_raw (IN=A) L20_b_raw (IN=B);
-	 by SEQN;
-	 demo = A;
-	 L20 = B;
+     merge demo_b_raw_sorted (IN=A) L20_b_raw_sorted (IN=B);
+     by SEQN;
+     demo = A;
+     L20 = B;
 run;
 
 data demo_lead_c;
-	 merge demo_c_raw (IN=A) L20_c_raw (IN=B);
-	 by SEQN;
-	 demo = A;
-	 L20 = B;
+     merge demo_c_raw_sorted (IN=A) L20_c_raw_sorted (IN=B);
+     by SEQN;
+     demo = A;
+     L20 = B;
 run;
 
 /*Dataset for lead exposure*/
-data demo_lead_analytic_file (keep=survey_year country_birth citizen
-race dust_sample room_sample floor_ug window_ug mean_ug);
+data demo_lead_analytic_file(
+    keep = survey_year
+         country_birth
+         citizen
+         race
+         dust_sample
+         room_sample
+         floor_ug
+         window_ug);
 	set demo_lead_b demo_lead_c;
-	rename  SDDSRVYR = survey_year
+    rename  SDDSRVYR = survey_year
 			DMDBORN = country_birth
 			DMDCITZN = citizen
 			RIDRETH1 = race
