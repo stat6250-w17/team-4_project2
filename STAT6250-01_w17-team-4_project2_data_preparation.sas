@@ -349,7 +349,7 @@ proc format;
      ;
 	 value WalkBike_Status_fmt
 	     1="Yes"
-	     OTHER="No"
+	     2-9="No"
      ;
      value Age_fmt
          low-20="<=20"
@@ -447,11 +447,12 @@ data demo_paq_total;
 	
 run;
 
-* creat analytic file for physical activities;
+*creat analytic file for physical activities;
 *create a new variable Total_Time_WalkBike, the total time that an individual
-spends on walking or biking,and compute according to variable PAQ050U, unit 
-of measure,which is the unit: day, week, and month(1="day",2="week", and 
-3="month"),an individual often walks or bikes several times per.;
+spends on walking or biking in 30 days,and compute it according to variables:
+PAQ050Q, Times per unit. PAQ050U, Unit of Measure, day, week, and month
+(1="day",2="week", and 3="month"). PAD080, Minutes spend on walking or biking
+on doing these activities days.;
 data demo_paq_analytic_file;
      retain
          SEQN 
