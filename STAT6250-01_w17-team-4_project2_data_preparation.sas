@@ -401,7 +401,8 @@ data demo_lead_analytic_file(
          dust_sample
          room_sample
          floor_ug
-         window_ug);
+         window_ug
+         mean_ug);
     set demo_lead_b demo_lead_c;
     rename  SDDSRVYR = survey_year
             DMDBORN = country_birth
