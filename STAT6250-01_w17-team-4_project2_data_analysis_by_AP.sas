@@ -79,7 +79,8 @@ average physical activity of each age group
 proc means data= demo_paq_analytic_file mean; 
     class Age;
     var Avg_Physical_Activity;
-    where Year_of_Recording=3;
+    where Year_of_Recording=3 
+    AND Avg_Physical_Activity >= 1 AND Avg_Physical_Activity <= 4;
     format 
         Age Age_fmt.
     ;
@@ -114,7 +115,7 @@ footnote2
 ;
 
 footnote3
-"Again there are about 6612 missing values from a total of 10094 observation from 2001 and 5835 missing values from a total of  9278 for the year 2005"
+"Again there are about 6612 missing values from a total of 10094 observations for the year 2001 and 5835 missing values from a total of  9278 for the year 2003"
 ;
 footnote4
 "Further analysis of the missing values is certainly required."
@@ -133,9 +134,13 @@ activity was performed by the particular age group for different years
 ;
 */
 
-proc means data= demo_paq_analytic_file mean;
+proc means data= demo_paq_analytic_file mean NOLABELS;
     class Age;
     var Avg_Time_Activity_2001 Avg_Time_Activity_2003;
+	where (Avg_Time_Activity_2003 IS MISSING 
+          AND (Avg_Time_Activity_2001 >=1 AND Avg_Time_Activity_2001 <=600)) 
+    OR (Avg_Time_Activity_2001 IS MISSING 
+          AND (Avg_Time_Activity_2003 >=1 AND Avg_Time_Activity_2003 <=600));
     format 
         Age Age_fmt.
     ;
@@ -159,11 +164,11 @@ title2
 ;
 
 footnote1
-"The respondants in the age group 70 and above have a higher average number of times of strength training exercise while the age group 31-40 have the least."
+"The respondants in the age group 70 and above have a higher average number of times of strength training exercise session in the last 30 days while the age group 31-40 have the least."
 ;
 
 footnote2
-"Also the number of missing values is 2040 of the total 9278 observations for this category"
+"Also the number of missing values is 6709 of the total 9278 observations for this category."
 ;
 
 
@@ -180,13 +185,14 @@ activity was performed by the particular age group.
 proc means mean data= demo_paq_analytic_file;
     class Age;
     var Avg_No_Of_Times;
-    where Year_of_Recording=3;
+    where Year_of_Recording=3 
+	AND (Avg_No_Of_Times >=1 AND Avg_No_Of_Times <= 210);
     format 
         Age Age_fmt.
     ;
 	label
         Age="Age Group"
-        Avg_No_Of_Times="Strenght traning exercise"
+        Avg_No_Of_Times="Strength traning exercise"
 	;
 
 run;
