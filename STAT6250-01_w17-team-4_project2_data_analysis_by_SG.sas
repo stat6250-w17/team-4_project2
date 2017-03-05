@@ -29,36 +29,31 @@ Brings in the data preparation file;
 *******************************************************************************;
 
 title1
-"Question: What is the lead exposure per race, per year for children. As a 
-follow-up, what is the lead exposure change from the earlier dataset to later?"
+"Question: What is the lead exposure per race, per year for children. As a follow-up, what is the lead exposure change from the earlier dataset to later?"
 ;
 
 title2
-"Rationale: This will help us determine if certain racial groups have a higher 
-propensity to lead exposure, and also whether the exposure has improved or 
-not over the years."
+"Rationale: This will help us determine if certain racial groups have a higher propensity to lead exposure, and also whether the exposure has improved or not over the years."
 ;
 
 footnote1
-"From the results it seems Non-Hispanic Black individuals live in the highest
-amounts of lead dust.Next are those of multi-racial descent."
+"From the results it seems Non-Hispanic Black individuals live in the highest amounts of lead dust.Next are those of multi-racial descent."
 ;
 
 footnote2
-"The mean lead exposure of all races decreased from year to year, except that of
-Non-Hispanic Black"
+"The mean lead exposure of all races decreased from year to year, except that of Non-Hispanic Black"
 ;
 
 *
 Note: 
 Methodology: By using proc means, we can see that there are changes in mean
-lead exposure from year to year, and race to race
+lead exposure from year to year, and race to race. 
 ;
 
 proc means data=work.demo_lead_analytic_file;
-	class survey_year race;
-	var mean_ug;
-	format race race. survey_year survey_year.;
+    class survey_year race;
+    var mean_ug;
+    format race race. survey_year survey_year.;
 run;
 
 title;
@@ -73,13 +68,11 @@ title1
 ;
 
 title2
-"Rationale: This will help us determine if certain countries of origin in 
-conjunction with citizenship status have a higher propensity to lead exposure."
+"Rationale: This will help us determine if certain countries of origin in conjunction with citizenship status have a higher propensity to lead exposure."
 ;
 
 footnote1
-"It seems by citizenship status and country of origin, those non-citizens born
-elsewhere had the highest lead exposure among all others."
+"It seems by citizenship status and country of origin, those non-citizens born elsewhere had the highest lead exposure among all others."
 ;
 
 footnote2
@@ -89,14 +82,15 @@ footnote2
 *
 Note: 
 Methodology:By using proc means, we can see that there are changes in mean
-lead exposure from citizenship status and country of origin.
+lead exposure from citizenship status and country of origin. Subset to only
+the latest survey year.
 ;
 
 proc means data=work.demo_lead_analytic_file;
-	where survey_year = 3;
-	class country_birth citizen;
-	var mean_ug;
-	format country_birth country_birth. citizen citizen.;
+    where survey_year = 3;
+    class country_birth citizen;
+    var mean_ug;
+    format country_birth country_birth. citizen citizen.;
 run;
 
 title;
@@ -107,13 +101,11 @@ footnote;
 *******************************************************************************;
 
 title1
-"Question: Was there a significant difference in lead exposure in different 
-parts of a room?"
+"Question: Was there a significant difference in lead exposure in different parts of a room?"
 ;
 
 title2
-"Rationale: This would help us determine whether a great amount of lead is on
-a window sill versus that of a floor."
+"Rationale: This would help us determine whether a great amount of lead is on a window sill versus that of a floor."
 ;
 
 footnote1
@@ -123,12 +115,14 @@ footnote1
 *
 Note: 
 Methodology:By using proc means, we can see that there are differences in 
-lead build up between the floor and window sill.
+lead build up between the floor and window sill.  Subset to only
+the latest survey year.
+;
 ;
 
 proc means data=work.demo_lead_analytic_file;
-	where survey_year = 3;
-	var floor_ug  window_ug;
+    where survey_year = 3;
+    var floor_ug  window_ug;
 run;
 
 title;
