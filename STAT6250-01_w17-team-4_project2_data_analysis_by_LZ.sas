@@ -103,12 +103,12 @@ title2
 ;
 
 footnote1
-"Based on the outputs, gender and annual family income don't play roles in determining people's physical activity choices, but age really does. Men and women appear equally like walking or biking,32.34% male and 28.75 female like walking or biking.
+"Based on the outputs, gender and annual family income don't play roles in determining people's physical activity choices, but age really does. Men are slightly more likely to like walking or biking than women,32.34% male and 28.75 female like walking or biking.
 All annual family income groups have almost same percentage,about 28%, of people like it. However, the older people are,the less likely they like walking or biking, 47.9% people younger than 21 like it, and 30.5% people who are between 21-30 years old like it,but only 16.88% people older than 70 do. "
 ;
 
 footnote2
-"These outputs make sense. Whether men or women, whether the rich or the poor, all like walking or biking in order to be healthy, but it requires time and energy, so age matters in choosing it."
+"These outputs show that whether men or women, whether the rich or the poor, all equally like walking or biking. However, walking or biking require time and energy, so age matters in choosing it."
 ;
 
 *
@@ -152,7 +152,7 @@ Consider annual family income, the richer people are, the less time they spend o
 ;
 
 footnote2
-"The possible explanation would be that walking or biking are time and energy consuming. Men are stronger than women on walking or biking. Seniors and students, the poor have more time to spend."
+"The possible explanation would be that walking or biking are time and energy consuming. Men are stronger than women in walking or biking. Seniors and students, the poor have more time to spend."
 ;
 
 *
