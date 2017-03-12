@@ -72,17 +72,17 @@ Methodology:  use proc print to display the first 10 rows of the dataset that
 was sorted by Total_Time_WalkBike in descending order in the data-prep file.
 ;
 
-proc print data=demo_paq_analytic_file_sorted(obs=10); 
+proc print data=demo_paq_analytic_file_sorted(obs=10);
     var
-        SEQN 
+        SEQN
         Times_WalkBike
-	Unit_Measure
-	Minutes_Day
-	Gender
-	Age
-	Annual_Family_Income
-	Total_Time_WalkBike
-	;
+        Unit_Measure
+        Minutes_Day
+        Gender
+        Age
+        Annual_Family_Income
+        Total_Time_WalkBike
+    ;
 run;
 
 title;
@@ -119,14 +119,14 @@ to create cross-table.
 proc freq data=demo_paq_analytic_file;
     tables
         WalkBike_Status*
-	(Gender Age Annual_Family_Income)
+        (Gender Age Annual_Family_Income)
         / norow nofreq nopercent;
     format 
         WalkBike_Status WalkBike_Status_fmt.
-	Gender Gender_fmt.
-	Age Age_fmt.
-	Annual_Family_Income Annual_Family_Income_fmt.
-     ;      
+        Gender Gender_fmt.
+        Age Age_fmt.
+        Annual_Family_Income Annual_Family_Income_fmt.
+    ;      
 run;
 
 title;
@@ -163,7 +163,7 @@ proc means  data=demo_paq_analytic_file  mean;
     class Gender;
     var Total_Time_WalkBike;
     where WalkBike_Status=1;
-    format 
+    format
         Gender Gender_fmt. 
     ;
 run;
