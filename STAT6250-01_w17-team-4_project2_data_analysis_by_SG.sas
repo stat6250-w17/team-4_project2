@@ -45,9 +45,10 @@ footnote2
 ;
 
 *
-Note: 
-Methodology: By using proc means, we can see that there are changes in mean
-lead exposure from year to year, and race to race. 
+Methodology: We create a mean lead exposure variable that takes the average of 
+carpet and windows sill and creates a variable. By taking the mean of this 
+average for each combination of survey_year and race, we can find differences 
+of lead exposure
 ;
 
 proc means data=work.demo_lead_analytic_file;
@@ -80,10 +81,10 @@ footnote2
 ;
 
 *
-Note: 
-Methodology:By using proc means, we can see that there are changes in mean
-lead exposure from citizenship status and country of origin. Subset to only
-the latest survey year.
+Methodology: We create a mean lead exposure variable that takes the average of 
+carpet and windows sill and creates a variable. By considering only the most 
+recent survey year, take the mean of this average for each combination of 
+country of birth and citizenship
 ;
 
 proc means data=work.demo_lead_analytic_file;
@@ -113,11 +114,8 @@ footnote1
 ;
 
 *
-Note: 
-Methodology:By using proc means, we can see that there are differences in 
-lead build up between the floor and window sill.  Subset to only
-the latest survey year.
-;
+Methodology: Here we take the mean of floor lead level and window lead levels 
+and compare them for the most recent year;
 ;
 
 proc means data=work.demo_lead_analytic_file;

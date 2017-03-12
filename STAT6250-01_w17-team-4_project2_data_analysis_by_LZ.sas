@@ -73,17 +73,16 @@ was sorted by Total_Time_WalkBike in descending order in the data-prep file.
 ;
 
 proc print data=demo_paq_analytic_file_sorted(obs=10); 
-     var 
-	     SEQN 
-         Times_WalkBike
-	     Unit_Measure
-	     Minutes_Day
-	     Gender
-	     Age
-	     Annual_Family_Income
-		 Total_Time_WalkBike
-	 ;
-
+    var
+        SEQN 
+        Times_WalkBike
+	Unit_Measure
+	Minutes_Day
+	Gender
+	Age
+	Annual_Family_Income
+	Total_Time_WalkBike
+	;
 run;
 
 title;
@@ -118,15 +117,15 @@ to create cross-table.
 ;
 
 proc freq data=demo_paq_analytic_file;
-     tables
-	     WalkBike_Status*
-	     (Gender Age Annual_Family_Income)
-         / norow nofreq nopercent;
-     format 
-	     WalkBike_Status WalkBike_Status_fmt.
-         Gender Gender_fmt.
-	     Age Age_fmt.
-	     Annual_Family_Income Annual_Family_Income_fmt.
+    tables
+        WalkBike_Status*
+	(Gender Age Annual_Family_Income)
+        / norow nofreq nopercent;
+    format 
+        WalkBike_Status WalkBike_Status_fmt.
+	Gender Gender_fmt.
+	Age Age_fmt.
+	Annual_Family_Income Annual_Family_Income_fmt.
      ;      
 run;
 
@@ -160,29 +159,29 @@ Methodology: Use proc means to compute the average time they spend on walking an
 biking in 30 days by gender, age, and annual family income.
 ;
 
-proc means mean data=demo_paq_analytic_file;
-     class Gender;
-     var Total_Time_WalkBike;
-     where WalkBike_Status=1;
-	 format 
-         Gender Gender_fmt. 
-	 ;
+proc means  data=demo_paq_analytic_file  mean;
+    class Gender;
+    var Total_Time_WalkBike;
+    where WalkBike_Status=1;
+    format 
+        Gender Gender_fmt. 
+    ;
 run;
-proc means mean data=demo_paq_analytic_file;
-     class Age ;
-     var Total_Time_WalkBike;
-     where WalkBike_Status=1;
-	 format
-	     Age Age_fmt.
-	 ;
+proc means data=demo_paq_analytic_file  mean;
+    class Age;
+    var Total_Time_WalkBike;
+    where WalkBike_Status=1;
+    format
+        Age Age_fmt.
+    ;
 run;
-proc means mean data=demo_paq_analytic_file;
-     class Annual_Family_Income;
-     var Total_Time_WalkBike;
-     where WalkBike_Status=1;
-	 format
-	     Annual_Family_Income Annual_Family_Income_fmt.
-	 ;
+proc means data=demo_paq_analytic_file  mean;
+    class Annual_Family_Income;
+    var Total_Time_WalkBike;
+    where WalkBike_Status=1;
+    format
+        Annual_Family_Income Annual_Family_Income_fmt.
+    ;
 run;
 
 title;
