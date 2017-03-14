@@ -2,12 +2,12 @@
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
 *******************************************************************************;
-
+*IL: be careful with unnecessary whitespace;
 *
 This file uses the following analytic dataset to address several research
 questions regarding physical activities people do.
 
-Dataset Name: demo_paq_analytic_file                created in external file
+Dataset Name: demo_paq_analytic_file created in external file
 STAT6250-01_w17-team-4_project2_data_preparation.sas, which is assumed to be
 in the same directory as this file.
 
@@ -158,7 +158,9 @@ footnote2
 Methodology: Use proc means to compute the average time they spend on walking and
 biking in 30 days by gender, age, and annual family income.
 ;
-
+*IL: break this section into 3 parts, each with their own title and footnotes;
+*IL: consider using an inferential technique like regression in place of 3
+     separate descriptive steps;
 proc means  data=demo_paq_analytic_file  mean;
     class Gender;
     var Total_Time_WalkBike;
