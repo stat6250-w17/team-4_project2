@@ -2,12 +2,11 @@
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
 *******************************************************************************;
-
 *
 This file uses the following analytic dataset to address several research
 questions regarding physical activities people do.
 
-Dataset Name: demo_paq_analytic_file                created in external file
+Dataset Name: demo_paq_analytic_file created in external file
 STAT6250-01_w17-team-4_project2_data_preparation.sas, which is assumed to be
 in the same directory as this file.
 
@@ -53,7 +52,7 @@ title2
 ;
 
 footnote1
-"Based on the output,the top 10 walking or biking lovers spend 10800 to 16800 minutes in 30 days. That is at least six hours everyday, and the fist one spends 10 hours everyday!"
+"Based on the output,the top 10 walking or biking lovers spend 10800 to 16800 minutes in 30 days. That is at least six hours everyday, and the first one spends 10 hours everyday!"
 ;
 
 footnote2
@@ -61,7 +60,7 @@ footnote2
 ;
 
 footnote3
-"However, assuming there are no data issues underlying this analysis, since half of them are 18-19 years old, possible explanation for such large numbers include work needs and professional training."
+"However, assuming there are no data issues underlying this analysis, possible explanation for such large numbers include work needs and professional training."
 ;
 
 *
@@ -146,17 +145,16 @@ title2
 ;
 
 footnote1
-"Based on the output, Men spend more time on walking or biking than women. The average time is 743 minutes for men and 611 minutes for women. To surprise, people older than 70 spend the most time, 719 minutes; people who are 61-70 or younger than 21 come second, 692 minutes; and people who are 21-30 spend the least time.
-Consider annual family income, the richer people are, the less time they spend on walking or biking. The people whose annual family income less than $25,000 spend 773 minutes, but people whose annual family income greater than $75,000 spend 488 minutes."
+"Based on the output, Men spend more time on walking or biking than women. The average time is 743 minutes for men and 611 minutes for women."
 ;
 
 footnote2
-"The possible explanation would be that walking or biking are time and energy consuming. Men are stronger than women in walking or biking. Seniors and students, the poor have more time to spend."
+"The possible explanation would be that walking or biking are energy consuming. Men are stronger than women in walking or biking."
 ;
 
 *
-Methodology: Use proc means to compute the average time they spend on walking and
-biking in 30 days by gender, age, and annual family income.
+Methodology: Use proc means to compute the average time they spend on walking
+and biking in 30 days by gender, age, and annual family income.
 ;
 
 proc means  data=demo_paq_analytic_file  mean;
@@ -167,6 +165,15 @@ proc means  data=demo_paq_analytic_file  mean;
         Gender Gender_fmt. 
     ;
 run;
+footnote;
+
+footnote1
+"Based on the output,to surprise, people older than 70 spend the most time, 719 minutes; people who are 61-70 or younger than 21 come second, 692 minutes; and people who are 21-30 spend the least time."
+;
+
+footnote2
+"The possible explanation would be that walking or biking are time consuming and economical. Seniors and students have time to spend and have limited incomes."
+;
 proc means data=demo_paq_analytic_file  mean;
     class Age;
     var Total_Time_WalkBike;
@@ -175,6 +182,15 @@ proc means data=demo_paq_analytic_file  mean;
         Age Age_fmt.
     ;
 run;
+footnote;
+
+footnote1
+"Based on the output, the richer people are, the less time they spend on walking or biking. The people whose annual family income less than $25,000 spend 773 minutes, but people whose annual family income greater than $75,000 spend 488 minutes."
+;
+
+footnote2
+"The possible explanation would be that walking or biking are time consuming and economical. The poor have more time to spend than the rich and have limited incomes."
+;
 proc means data=demo_paq_analytic_file  mean;
     class Annual_Family_Income;
     var Total_Time_WalkBike;
